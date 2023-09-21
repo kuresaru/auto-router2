@@ -9,6 +9,11 @@ int main(int argc, char *argv[])
     {
         return ret;
     }
+    ret = redis_start();
+    if (ret)
+    {
+        return ret;
+    }
     ret = capture_start();
     if (ret)
     {

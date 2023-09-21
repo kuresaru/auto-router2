@@ -1,4 +1,4 @@
-LIBS = -lpcap
+LIBS = -lpcap -lhiredis -lpthread
 OPTS = -Iinc -g
 SRCS = $(notdir $(wildcard src/*.c))
 OBJS = $(SRCS:.c=.o)
