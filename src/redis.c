@@ -61,6 +61,7 @@ static inline void expire_syn(uint32_t *ip)
     char ipbuf[16];
     ip2str(ip, ipbuf);
     printf("add %s syn expired\n", ipbuf);
+    myipset_add(ipbuf);
 }
 
 static inline void expire_ack(uint32_t *ip)
@@ -68,6 +69,7 @@ static inline void expire_ack(uint32_t *ip)
     char ipbuf[16];
     ip2str(ip, ipbuf);
     printf("del %s ack expired\n", ipbuf);
+    myipset_del(ipbuf);
 }
 
 static void *subscribe_thread(void *args)
@@ -88,7 +90,6 @@ static void *subscribe_thread(void *args)
                     if (!memcmp(key->str, "auto-router2:syn_", 17))
                     {
                         ip = strtoul(key->str + 17, &end_ptr, 16);
-                        printf("%08x\n", ip);
                         if (end_ptr == key->str + 25)
                         {
                             expire_syn(&ip);
@@ -107,7 +108,9 @@ static void *subscribe_thread(void *args)
         }
         freeReplyObject(reply);
     }
-    pthread_exit(NULL);
+    fprintf(stderr, "subscribe thread exit unexpected\n");
+    exit(1);
+    // pthread_exit(NULL);
 }
 
 int redis_start()

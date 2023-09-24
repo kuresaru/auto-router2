@@ -9,6 +9,11 @@ int main(int argc, char *argv[])
     {
         return ret;
     }
+    ret = myipset_init();
+    if (ret)
+    {
+        return ret;
+    }
     ret = redis_start();
     if (ret)
     {
