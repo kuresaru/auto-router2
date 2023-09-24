@@ -1,5 +1,5 @@
 LIBS = -lpcap -lhiredis -lpthread -lipset
-OPTS = -Iinc -g
+OPTS = -Iinc
 SRCS = $(notdir $(wildcard src/*.c))
 OBJS = $(SRCS:.c=.o)
 TARGET = auto-router2
