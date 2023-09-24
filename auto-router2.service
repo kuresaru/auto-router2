@@ -1,0 +1,16 @@
+[Unit]
+After=network.target redis-server.service
+
+[Service]
+ExecStart=/root/auto-router2/auto-router2 -h 127.0.0.1 -p 6379 -i eth0 -s 3 -a 86400 -l auto-router2
+WorkingDirectory=/root/auto-router2/
+Type=simple
+User=root
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=auto-router2
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
